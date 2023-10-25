@@ -22,8 +22,9 @@ elif serviço == 'ALB':
         os.system("aws elbv2 describe-load-balancers --region us-east-1 | grep LoadBalancerName | awk -F'\"' '{{print $4}}' > {}".format(arquivo_temporario))
         read_arq = open(arquivo_temporario)
         for alb in read_arq:
-            print(alb)
-            print(f"aws elbv2 describe-load-balancers --names {alb} --output json > testes/alb_{alb}.json")
+            alb = alb.strip()
+            os.system(f"aws elbv2 describe-load-balancers --names {alb} --region {region} --output json > testes/alb_{alb}.json")
+            print(f'Finalizou {alb}')
     elif albescolha1 == 'n':
         name_alb = str(input('Digite o nome dos ALBs separados por vírgula ",":'))
         albs = name_alb.split(',')
