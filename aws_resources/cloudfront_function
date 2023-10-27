@@ -1,17 +1,25 @@
 import boto3
-from commands_linux import arquivo 
+from linux_scripts.commands_linux import arquivo
 cf_client = boto3.client('cloudfront', region_name='us-east-1')
 
 def cloudfront():
     response = cf_client.get_distribution(
         Id='E3IS0ZF5IJHUO6'
     )
+    id = response['Distribution']['Id']
     domainname = response['Distribution']['DomainName']
+    arn = response['Distribution']['ARN']
+    #sslcertificate =
+    #logbucket =
+    #logprefix =
+    #cookielogin =
+    #priceclass =
     webaclid = response['DistributionConfig']['Webaclid']
-    arquivo(domainname)
+    originname = response['DistributionConfig']['Origin']['Id']
+    origindomain = response['DistributionConfig']['Origin']['DomainName']
+    
 
 
-
-
+    arquivo(domainname, id, arn, webaclid, originname, origindomain)
 
 cloudfront()
