@@ -1,0 +1,14 @@
+Valores do CloudFront
+Name:
+Distribution ID:
+ARN:
+Domain Name:
+SSL Certificate:
+Log Bucket:
+Log Prefix:
+Cookie Logging:
+Price Class:
+AWS WAF:
+Origins:
+    Origin Name: 
+    Origin Domain:
