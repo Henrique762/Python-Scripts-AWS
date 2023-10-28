@@ -33,4 +33,7 @@ def cloudfront():
 
     arquivo(domainname, id, arn, webaclid, originname, origindomain)
 
+
 cloudfront()
+
+#oi
