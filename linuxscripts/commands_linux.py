@@ -28,22 +28,22 @@ def loadbalancer_file(name: str, project: str, env: str, lbname: str, lbtype: st
         print(f"Conteúdo do arquivo {output_file} foi removido.")
     else:
         with open(output_file, "w") as file:
-            file.write(f"Load Balancer File '{account_id}'")
+            file.write(f"Load Balancer File")
 
         print(f"O arquivo {output_file} foi criado com conteúdo inicial.")
 
     with open(output_file, "w") as file:
-        file.write(f"""\n
-                   Name: '{name}'
-                   Project: '{project}'
-                   Environment: '{env}'
-                   Load Balancer Name: '{lbname}'
-                   Type: '{lbtype}'
-                   State: '{lbstate}'
-                   Scheme: '{lbscheme}'
-                   
-                   Network
-                   VpcId: '{vpc_id}'
-                   Subnets: '{subnets}'
-                   Availability Zone: '{azs}'\n""")
+        file.write(f"""
+Name: {name}
+Project: {project}
+Environment: {env}
+Load Balancer Name: {lbname}
+Type: {lbtype}
+State: {lbstate}
+Scheme: {lbscheme}
+
+Network
+VpcId: {vpc_id}
+Subnets: {subnets}
+Availability Zone: {azs}""")
     return {'message': f'file {output_file} created'}
