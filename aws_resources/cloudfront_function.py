@@ -9,28 +9,47 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 linuxscripts_path = os.path.join(current_dir, '..', 'linux_scripts')
 sys.path.append(linuxscripts_path)
 
-
 from commands_linux import arquivo
+
 cf_client = boto3.client('cloudfront', region_name='us-east-1')
-
     
+def cloudfront(path_pasta):
 
-lista = ['EEHGHIG92SRKZ']
-resposta = 's'
+    cfescolha = str(input('Você deseja informação de Todos os Recursos?'))
 
+    if cfescolha == 's':
+        response = cf_client.list_distributions()
+        ##for cf in response['DistributionList']['Items'][0]['Id']:
+        for cf in response['DistributionList']['Items']:
+            cf = cf['Id']
+            response = cf_client.get_distribution(
+                Id= f'{cf}'
+            )
+            print(cf)
+            domainname = response['Distribution']['Id']
+            id = response['Distribution']['DomainName']
+            arn = response['Distribution']['ARN']
+            sslcertificate = 'null'
+            ##sslcertificate = response['Distribution']['DistributionConfig']['ViewerCertificate']['ACMCertificateArn']
+            logbucket = response['Distribution']['DistributionConfig']['Logging']['Bucket']
+            logprefix = response['Distribution']['DistributionConfig']['Logging']['Prefix']
+            cookielogin = str(response['Distribution']['DistributionConfig']['Logging']['IncludeCookies'])
+            priceclass = response['Distribution']['DistributionConfig']['PriceClass']
+            webaclid = response['Distribution']['DistributionConfig']['WebACLId']
+            originname = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['Id']
+            origindomain = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['DomainName']
+            arquivo(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, caminho)
 
-def cloudfront(resposta, lista):
-    if resposta == 's':
-        pass
-    elif resposta == 'n':
-
-        for cf in lista:
+    elif cfescolha == 'n':
+        lista_id_cf = str(input('Digite o ID da Distribuição separados por vírgula ",":'))
+        lista_id_cf = lista_id_cf.split(',')
+        for cf in lista_id_cf:
             print(f'Esse é o id{cf}')
             response = cf_client.get_distribution(
-                Id={cf}
+                Id= f'{cf}'
             )
-            id = response['Distribution']['Id']
-            domainname = response['Distribution']['DomainName']
+            domainname = response['Distribution']['Id']
+            id = response['Distribution']['DomainName']
             arn = response['Distribution']['ARN']
             sslcertificate = response['Distribution']['DistributionConfig']['ViewerCertificate']['ACMCertificateArn']
             logbucket = response['Distribution']['DistributionConfig']['Logging']['Bucket']
@@ -40,16 +59,5 @@ def cloudfront(resposta, lista):
             webaclid = response['Distribution']['DistributionConfig']['WebACLId']
             originname = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['Id']
             origindomain = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['DomainName']
-    
-            ##todos_recursos = [domainname, id, arn, sslcertificate, ##logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain]
-    
-            ##for recursos in todos_recursos:
-                ##if recursos == None or recursos == '':
-                   ## recursos = 'Não esta Habilitado'
-    
-    
-            arquivo(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain)
 
-
-cloudfront(resposta, lista)
-
+            arquivo(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, path_pasta)

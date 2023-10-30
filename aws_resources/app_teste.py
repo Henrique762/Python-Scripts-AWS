@@ -1,31 +1,39 @@
 import os
-from cloudfront_function import cloudfront
 import boto3
+import sys
+from cloudfront_function import cloudfront
+from commands_linux import arquivo, pastas
+
+
+# Obtenha o diretório atual do describe_alb.py
+current_dir = os.path.dirname(os.path.abspath(__file__))
+ 
+# Construa o caminho para a "linuxscripts" e adicione ao sys.path
+linuxscripts_path = os.path.join(current_dir, '..', 'linux_scripts')
+sys.path.append(linuxscripts_path)
 
 ##### Input de Informações ######
-serviço = str(input('Digite o nome do serviço que deseja as informações (CloudFront, ALB ou VPC):'))
+service = str(input('Digite o nome do serviço que deseja as informações (CloudFront, ALB ou VPC):'))
 account = str(input('Insira o ID da Conta:'))
 region = str(input('Insira a região:'))
 
+path_pasta = pastas(account, service)
 
-##### Chamando Clients da AWS #####
-cf_client = boto3.client('cloudfront', region_name='us-east-1')
 ##### Ciriação de Arquivos #####
-caminho = os.getcwd()
-arquivos = os.listdir(caminho)
-if account in arquivos:
-    pass
-else:
-    os.makedirs(f'Contas/{account}/{serviço}')
+##caminho = os.getcwd()
+##arquivos = os.listdir(caminho)
+##if account in arquivos:
+##    pass
+##else:
+##    os.makedirs(f'Contas/{account}/{serviço}')
 
-##if serviço == 'Cloudfront':
-##    cfescolha = str(input('Você deseja informação de Todos os Recursos?'))
-##    if cfescolha == 's':
-##        pass
-##    elif cfescolha == 'n':
-##        id_cf = str(input('Digite o ID da Distribuição separados por vírgula ",":'))
-##        id_cf = id_cf.split(',')
-##        cloudfront(cfescolha, id_cf)
+print (f'esse é o caminho: {path_pasta}')
+
+if service == 'CloudFront':
+    cloudfront(path_pasta)
+
+
+
 ##elif serviço == 'ALB':
 ##    albescolha1 = str(input('Você deseja informação de Todos os Recursos?(s/n)'))
 ##    if albescolha1 == 's':
