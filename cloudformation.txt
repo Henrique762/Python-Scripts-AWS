@@ -1,0 +1,12 @@
+Distribution ID: 
+ARN: 
+Domain Name: d1rnbct96x1ge5.cloudfront.net
+SSL Certificate: arn:aws:acm:us-east-1:653424960199:certificate/136b11b1-6af5-4894-8f25-01a1e2c39c1a
+Log Bucket: 
+Log Prefix: 
+Cookie Logging: False
+Price Class: PriceClass_All
+AWS WAF: 
+Origins:
+    Origin Name: estatico-csm-cor.s3-website-us-east-1.amazonaws.com
+    Origin Domain: estatico-csm-cor.s3-website-us-east-1.amazonaws.com
