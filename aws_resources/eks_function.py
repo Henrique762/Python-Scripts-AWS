@@ -17,7 +17,7 @@ def clustereks(path_pasta, region):
 
     eks_client = boto3.client('eks', region_name=f'{region}')
 
-    ekscluster = str(input('Você deseja informação de Todos os Recursos?'))
+    ekscluster = str(input('Você deseja informação de Todos os Recursos? (s/n)'))
 
     if ekscluster == 's':
         list_clusters = eks_client.list_clusters()
@@ -70,20 +70,6 @@ def clustereks(path_pasta, region):
             response = eks_client.describe_cluster(
             name=f'{eks}'
             )
-
-            name = response['cluster']['name']
-            arn = response['cluster']['arn']
-            version = response['cluster']['version']
-            endpoint = response['cluster']['endpoint'] 
-            rolearn = response['cluster']['roleArn']
-            vpcid = response['cluster']['resourcesVpcConfig']['vpcId']
-            subnets = response['cluster']['resourcesVpcConfig']['subnetIds'][0]
-            securitygroups = response['cluster']['resourcesVpcConfig']['securityGroupIds'][0]
-            clustersecuritygroup = response['cluster']['resourcesVpcConfig']['clusterSecurityGroupId']
-            logging_types =  response['cluster']['logging']['clusterLogging'][0]['types']
-
-            arquivo_eks(name, arn, version, endpoint, rolearn, vpcid, subnets, securitygroups, clustersecuritygroup, logging_types, path_pasta)
-
             list_nodegroups = eks_client.list_nodegroups(
             clusterName=f'{eks}'
             )
@@ -101,9 +87,18 @@ def clustereks(path_pasta, region):
                 scalingconfig =  response_nodegroup['nodegroup']['scalingConfig']
                 instancetype =  response_nodegroup['nodegroup']['instanceTypes']
                 asgnodegroups =  response_nodegroup['nodegroup']['resources']['autoScalingGroups']
+            
+            ######## Cluster #################
+                name = response['cluster']['name']
+                arn = response['cluster']['arn']
+                version = response['cluster']['version']
+                endpoint = response['cluster']['endpoint'] 
+                rolearn = response['cluster']['roleArn']
+                vpcid = response['cluster']['resourcesVpcConfig']['vpcId']
+                subnets = response['cluster']['resourcesVpcConfig']['subnetIds'][0]
+                securitygroups = response['cluster']['resourcesVpcConfig']['securityGroupIds'][0]
+                clustersecuritygroup = response['cluster']['resourcesVpcConfig']['clusterSecurityGroupId']
+                logging_types =  response['cluster']['logging']['clusterLogging'][0]['types']
                 
+                arquivo_eks(name, arn, version, endpoint, rolearn, vpcid, subnets, securitygroups, clustersecuritygroup, logging_types, path_pasta)
                 nodegroup_infos(eks, namenodegroup, nodegrouparn, nodegroupversion, noderole, nodegroupsubnets, capacitytype, asgnodegroups, scalingconfig, instancetype, path_pasta)
-
-
-
-clustereks(path_pasta, region)

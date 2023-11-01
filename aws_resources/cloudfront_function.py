@@ -16,7 +16,7 @@ def cloudfront(path_pasta, region):
 
     cf_client = boto3.client('cloudfront', region_name=f'{region}')
 
-    cfescolha = str(input('Você deseja informação de Todos os Recursos?'))
+    cfescolha = str(input('Você deseja informação de Todos os Recursos?(s/n)'))
 
     if cfescolha == 's':
         cloudfront_values = cf_client.list_distributions()
