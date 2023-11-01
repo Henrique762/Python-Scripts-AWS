@@ -2,7 +2,8 @@ import os
 import boto3
 import sys
 from cloudfront_function import cloudfront
-from commands_linux import arquivo, pastas
+from eks_function import clustereks
+from commands_linux import arquivo_cf, arquivo_eks, pastas
 
 
 # Obtenha o diretório atual do describe_alb.py
@@ -13,7 +14,7 @@ linuxscripts_path = os.path.join(current_dir, '..', 'linux_scripts')
 sys.path.append(linuxscripts_path)
 
 ##### Input de Informações ######
-service = str(input('Digite o nome do serviço que deseja as informações (CloudFront, ALB ou VPC):'))
+service = str(input('Digite o nome do serviço que deseja as informações (CloudFront, ALB ou EKS):'))
 account = str(input('Insira o ID da Conta:'))
 region = str(input('Insira a região:'))
 
@@ -30,10 +31,11 @@ path_pasta = pastas(account, service)
 print (f'esse é o caminho: {path_pasta}')
 
 if service == 'CloudFront':
-    cloudfront(path_pasta)
+    cloudfront(path_pasta, region)
 
 
-
+elif service == 'EKS':
+    clustereks(path_pasta, region)
 ##elif serviço == 'ALB':
 ##    albescolha1 = str(input('Você deseja informação de Todos os Recursos?(s/n)'))
 ##    if albescolha1 == 's':

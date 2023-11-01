@@ -9,18 +9,19 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 linuxscripts_path = os.path.join(current_dir, '..', 'linux_scripts')
 sys.path.append(linuxscripts_path)
 
-from commands_linux import arquivo
+from commands_linux import arquivo_cf
 
-cf_client = boto3.client('cloudfront', region_name='us-east-1')
     
-def cloudfront(path_pasta):
+def cloudfront(path_pasta, region):
+
+    cf_client = boto3.client('cloudfront', region_name=f'{region}')
 
     cfescolha = str(input('Você deseja informação de Todos os Recursos?'))
 
     if cfescolha == 's':
-        response = cf_client.list_distributions()
+        cloudfront_values = cf_client.list_distributions()
         ##for cf in response['DistributionList']['Items'][0]['Id']:
-        for cf in response['DistributionList']['Items']:
+        for cf in cloudfront_values['DistributionList']['Items']:
             cf = cf['Id']
             response = cf_client.get_distribution(
                 Id= f'{cf}'
@@ -30,7 +31,11 @@ def cloudfront(path_pasta):
             id = response['Distribution']['DomainName']
             arn = response['Distribution']['ARN']
             sslcertificate = 'null'
-            ##sslcertificate = response['Distribution']['DistributionConfig']['ViewerCertificate']['ACMCertificateArn']
+            try:    
+                sslcertificate = response['Distribution']['DistributionConfig']['ViewerCertificate']['Certificate']
+            except KeyError:
+                pass
+            
             logbucket = response['Distribution']['DistributionConfig']['Logging']['Bucket']
             logprefix = response['Distribution']['DistributionConfig']['Logging']['Prefix']
             cookielogin = str(response['Distribution']['DistributionConfig']['Logging']['IncludeCookies'])
@@ -38,7 +43,7 @@ def cloudfront(path_pasta):
             webaclid = response['Distribution']['DistributionConfig']['WebACLId']
             originname = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['Id']
             origindomain = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['DomainName']
-            arquivo(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, caminho)
+            arquivo_cf(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, path_pasta)
 
     elif cfescolha == 'n':
         lista_id_cf = str(input('Digite o ID da Distribuição separados por vírgula ",":'))
@@ -60,4 +65,4 @@ def cloudfront(path_pasta):
             originname = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['Id']
             origindomain = response['Distribution']['DistributionConfig']['Origins']['Items'][0]['DomainName']
 
-            arquivo(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, path_pasta)
+            arquivo_cf(domainname, id, arn, sslcertificate, logbucket, logprefix, cookielogin, priceclass, webaclid, originname, origindomain, path_pasta)
