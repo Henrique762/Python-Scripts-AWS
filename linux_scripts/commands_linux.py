@@ -58,10 +58,10 @@ Logging: {logs}
 NodeGroups:
 """)
         
-def nodegroup_infos(id, name, arn, version, rolearn, subnets, capacitytype, asgnodegroups, scalingconfig, instancetype, path_pasta):
-    output_file = f"{path_pasta}/{id}_eks.txt"
-    with open(output_file, "a") as file:
-        file.write(f"""
+def nodegroup_infos(id, name, arn, version, rolearn, subnets, capacitytype, asgnodegroups, scalingconfig, instancetype, file):
+    ##output_file = f"{path_pasta}/{id}_eks.txt"
+    ##with open(output_file, "a") as file:
+    file.write(f"""
 Name Nodegroup: {name}
 Name Cluster: {id}
 ARN: {arn}
