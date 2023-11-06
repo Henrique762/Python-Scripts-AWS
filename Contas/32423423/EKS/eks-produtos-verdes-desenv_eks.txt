@@ -1,0 +1,24 @@
+
+Name Cluster: eks-produtos-verdes-desenv
+ARN: arn:aws:eks:us-east-1:116762053366:cluster/eks-produtos-verdes-desenv
+Version: 1.27
+Endpoint: https://F0C7F773087131960625E0DD74079A11.gr7.us-east-1.eks.amazonaws.com
+Role ARN: arn:aws:iam::116762053366:role/eks-produtos-verdes-desenv-role
+Vpc ID: vpc-096c613b72def76e1
+Subnets: subnet-095cb4f3153ffd8a0
+Securitys Groups: sg-09e2da34cb9d5e303
+Cluster Security Groups: sg-021f77d6272ec8220
+Logging: ['api', 'audit', 'authenticator', 'controllerManager', 'scheduler']
+
+NodeGroups:
+
+Name Nodegroup: eks-produtos-verdes-desenv-Engie20231106112813729600000010
+Name Cluster: eks-produtos-verdes-desenv
+ARN: arn:aws:eks:us-east-1:116762053366:nodegroup/eks-produtos-verdes-desenv/eks-produtos-verdes-desenv-Engie20231106112813729600000010/2ec5d231-f5f5-3dd5-3b12-96aedb6a276d
+Version: 1.27
+Role ARN: arn:aws:iam::116762053366:role/eks-produtos-verdes-desenv20231106111836799700000002
+Subnets: ['subnet-095cb4f3153ffd8a0', 'subnet-06ce3561b6d88051f']
+Capacity Type = ON_DEMAND
+Auto Scaling = [{'name': 'eks-eks-produtos-verdes-desenv-Engie20231106112813729600000010-2ec5d231-f5f5-3dd5-3b12-96aedb6a276d'}]
+Scaling Configs: {'minSize': 4, 'maxSize': 6, 'desiredSize': 4}
+Instance Type = ['t3a.large']

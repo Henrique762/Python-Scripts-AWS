@@ -4,6 +4,7 @@ import sys
 from cloudfront_function import cloudfront
 from eks_function import clustereks
 from commands_linux import arquivo_cf, arquivo_eks, pastas
+import time
 
 
 # Obtenha o diretório atual do describe_alb.py
@@ -19,16 +20,6 @@ account = str(input('Insira o ID da Conta:'))
 region = str(input('Insira a região:'))
 
 path_pasta = pastas(account, service)
-
-##### Ciriação de Arquivos #####
-##caminho = os.getcwd()
-##arquivos = os.listdir(caminho)
-##if account in arquivos:
-##    pass
-##else:
-##    os.makedirs(f'Contas/{account}/{serviço}')
-
-print (f'esse é o caminho: {path_pasta}')
 
 if service == 'CloudFront':
     cloudfront(path_pasta, region)

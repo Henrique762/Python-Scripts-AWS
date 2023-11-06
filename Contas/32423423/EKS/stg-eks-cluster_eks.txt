@@ -1,0 +1,13 @@
+
+Name Cluster: stg-eks-cluster
+ARN: arn:aws:eks:us-east-1:116762053366:cluster/stg-eks-cluster
+Version: 1.27
+Endpoint: https://19DCDE18AE0B723A55B98B7C62AE97E3.sk1.us-east-1.eks.amazonaws.com
+Role ARN: arn:aws:iam::116762053366:role/stg-engie-cluster
+Vpc ID: vpc-0ef416b78889d9295
+Subnets: subnet-00826219812b6508b
+Securitys Groups: sg-04a8e0bf84282a5d1
+Cluster Security Groups: sg-0eb793fdc329ccb5d
+Logging: ['api', 'audit', 'authenticator', 'controllerManager', 'scheduler']
+
+NodeGroups:
