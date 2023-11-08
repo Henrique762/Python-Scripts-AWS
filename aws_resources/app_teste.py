@@ -6,7 +6,6 @@ from eks_function import clustereks
 from commands_linux import arquivo_cf, arquivo_eks, pastas
 import time
 
-
 # Obtenha o diretório atual do describe_alb.py
 current_dir = os.path.dirname(os.path.abspath(__file__))
  
