@@ -67,5 +67,3 @@ def loadbalancer():
         loadbalancer_file(name, project, environment, lbname, arn, lbtype, lbstate, lbscheme, vpc_id, subnets, availability_zone, tg, log, waf, output_file)
     
     return {'message': 'created file with load balancer info'}
-
-loadbalancer()
