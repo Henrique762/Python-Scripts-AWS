@@ -1,2 +1,1 @@
- Python-Scripts-AWS
-ACESSA A PASTA aws_resource e roda o arquivo app_teste.py
+Para iniciar o script rode o arquivo app.py
