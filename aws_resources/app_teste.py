@@ -10,7 +10,7 @@ import time
 current_dir = os.path.dirname(os.path.abspath(__file__))
  
 # Construa o caminho para a "linuxscripts" e adicione ao sys.path
-linuxscripts_path = os.path.join(current_dir, '..', 'linux_scripts')
+linuxscripts_path = os.path.join(current_dir, '..', 'linuxscripts')
 sys.path.append(linuxscripts_path)
 
 ##### Input de Informações ######
