@@ -12,10 +12,11 @@ from commands_linux import loadbalancer_file
 
 import boto3
 
-elbv1_client = boto3.client('elb')
-elbv2_client = boto3.client('elbv2')
 
-def loadbalancer():
+def loadbalancer(region):
+
+    elbv1_client = boto3.client('elb', region_name=f'{region}')
+    elbv2_client = boto3.client('elbv2', region_name=f'{region}')
 
     response = elbv2_client.describe_load_balancers()
 
