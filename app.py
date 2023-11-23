@@ -21,6 +21,6 @@ elif service == 'EKS':
     clustereks(path_pasta, region)
 
 elif service == 'ALB':
-    loadbalancer()
+    loadbalancer(path_pasta, region)
 
 print('Dá uma olhada na pasta "Contas"')

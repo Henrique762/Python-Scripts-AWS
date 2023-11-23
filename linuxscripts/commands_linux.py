@@ -74,7 +74,9 @@ Scaling Configs: {scalingconfig}
 Instance Type = {instancetype}
 """)
 
-def loadbalancer_file(name: str, project: str, env: str, lbname: str, arn: str, lbtype: str, lbstate: str, lbscheme: str, vpc_id: str, subnets: str, azs: str, tg: str, log: str, waf:str, output_file: str):
+def loadbalancer_file(name: str, project: str, env: str, lbname: str, arn: str, lbtype: str, lbstate: str, lbscheme: str, vpc_id: str, subnets: str, azs: str, tg: str, log: str, waf:str, output_file: str, path_pasta: str):
+    output_file = f"{path_pasta}/{output_file}"
+    
     #Verificação da existência do arquivo
     if os.path.exists(output_file):
         with open(output_file, "w") as file:

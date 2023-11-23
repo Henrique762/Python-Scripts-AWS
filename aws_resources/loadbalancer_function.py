@@ -13,7 +13,7 @@ from commands_linux import loadbalancer_file
 import boto3
 
 
-def loadbalancer(region):
+def loadbalancer(path_pasta, region):
 
     elbv1_client = boto3.client('elb', region_name=f'{region}')
     elbv2_client = boto3.client('elbv2', region_name=f'{region}')
@@ -65,6 +65,6 @@ def loadbalancer(region):
 
         #Create file
         output_file = f'{lbname}_loadbalancer.txt'
-        loadbalancer_file(name, project, environment, lbname, arn, lbtype, lbstate, lbscheme, vpc_id, subnets, availability_zone, tg, log, waf, output_file)
+        loadbalancer_file(name, project, environment, lbname, arn, lbtype, lbstate, lbscheme, vpc_id, subnets, availability_zone, tg, log, waf, output_file, path_pasta)
     
     return {'message': 'created file with load balancer info'}
