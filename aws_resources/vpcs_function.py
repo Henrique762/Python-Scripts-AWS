@@ -10,4 +10,6 @@ sys.path.append(linuxscripts_path)
 
 region = "us-east-1"
 
-def vpcs(region):
+def vpcs(path_pasta, region):
+    vpc_client = boto3.client('ec2', regin_name=f'{region}')
+    
